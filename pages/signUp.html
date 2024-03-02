@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UVER</title>
+    <title>DeCarrerita</title>
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/signUp.css">
@@ -32,6 +32,10 @@
           <label for="lastName">Apellido</label>
         </div>
         <div class="input-box">
+          <input placeholder="Cedula" type="text" name="id" id="id" required>
+          <label for="id">Cédula</label>
+        </div>
+        <div class="input-box">
           <input placeholder="Telefono" type="tel" name="phone" id="phone" required>
           <label for="phone">Teléfono</label>
         </div>
@@ -48,11 +52,17 @@
         </div>    
       </fieldset>
 
-      <button type="submit">Registrarse</button>
-      <p class="link">
-        Inicia sesión
-        <a href="../index.html">aquí</a>
-      </p>
+      <div class="container-Button">
+        <button type="submit">Registrarse</button>
+        <p class="link">
+          Inicia sesión
+          <a href="../index.html">aquí</a>
+        </p>
+        <p class="link">
+          Ver el mapa
+          <a href="../pages/map.html">aquí</a>
+        </p>
+      </div>
     </form>
   </body>
 </html>
