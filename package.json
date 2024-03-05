@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@maptiler/geocoding-control": "^1.2.2",
+    "maplibre-gl": "^4.1.0",
     "mysql": "^2.18.1"
   }
 }

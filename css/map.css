@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 #map {
     width: 100vw;
     height: 100vh;
@@ -63,4 +67,13 @@
 
 .bi {
     color: #333;
+}
+
+/*--- Forms ---*/
+
+.whereToForm {
+    position: absolute;
+    z-index: 20;
+    bottom: -50%;
+    transition: bottom .3s ease-out;    
 }

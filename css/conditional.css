@@ -1,0 +1,6 @@
+.goUp {
+    position: absolute;
+    z-index: 20;
+    bottom: 30%;
+    transition: bottom .3s ease-out;
+}
