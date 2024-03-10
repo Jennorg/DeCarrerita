@@ -74,6 +74,41 @@ body {
 .whereToForm {
     position: absolute;
     z-index: 20;
-    bottom: -50%;
+    bottom: -100%;
     transition: bottom .3s ease-out;    
+}
+
+.whereToForm fieldset, .goUp fieldset {
+    margin: 1em 0px;
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    margin: .8em 0em;
+    position: relative;    
+}
+
+.container-Sugestions {
+    max-height: 75px; /* Establece una altura máxima para la lista desplegable */
+    pointer-events: none;
+    overflow-y: auto;
+    padding: 0;
+    position: absolute;
+    top: 100%; /* Posición relativa al campo de entrada */
+    width: 100%;
+    z-index: 30;   
+}
+.container-Sugestions li {
+    list-style: none;
+    width: 100%;
+    padding: 2px 12px;
+    background-color: #fff;
+    border: 1px solid #222;
+    color: #444;
+    z-index: 40;
+}
+
+.container-Sugestions li:hover {
+    cursor: pointer;
 }

@@ -23,18 +23,18 @@ body {
 form {
     position: relative;
     display: flex;
-    border: 1px solid black;
     border-radius: 20px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #E17737;
+    background-color: #fafafa;
     width: 80dvw;
     min-width: 200px;    
     max-width: 600px;    
     height: max-content;
     max-height: 900px;
+    box-shadow: 4px 5px 8px 1px #444;
 }
 
 fieldset {
@@ -94,13 +94,13 @@ button {
     align-self: center;
     padding: 1rem;
     border-radius: 10px;    
-    background-color: #E17737;
+    background-color: #f4a154;
     border: 1px solid #332B27;
     cursor: pointer;
 }
 
 button:active {
-    background-color: #c46930;
+    background-color: #db8e47;
 }
 
 .link {
