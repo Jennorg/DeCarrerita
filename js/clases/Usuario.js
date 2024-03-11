@@ -3,27 +3,17 @@ let mysql = require("mysql");
 
 class Usuario {
 
-  constructor(){
-    this.ci_user=0;
-    this.nombre="";
-    this.apellido="";
-    this.correo="";
-    this.contrasenna="";
-    this.fecha_ingreso="00-00-0000";
-    this.telefono=0;
+  constructor(nombre, apellido, correo, id, telefono, password, fecha_ingreso){
+    this.ci_user=id;
+    this.nombre=nombre;
+    this.apellido=apellido;
+    this.correo=correo;
+    this.contrasenna=password;
+    this.fecha_ingreso=fecha_ingreso;
+    this.telefono=telefono;
   }
 
-  /*constructor(ci_user, nombre, apellido, correo, contrasenna, fecha_ingreso, telefono) {
-    this.ci_user = ci_user;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.correo = correo;
-    this.contrasenna = contrasenna;
-    this.fecha_ingreso = fecha_ingreso;
-    this.telefono = telefono;
-  }*/
-
-  verificarUsuarioExistente(callback) {
+  verificarUsuarioExistente() {
     const connection = require('./Conexion');
 
     const usuariosQuery = "SELECT * FROM usuarios WHERE ci_user = ?";
@@ -32,7 +22,7 @@ class Usuario {
         console.error("Error al verificar la existencia del usuario:", error);
 
         // Llamar al callback con el error
-        return callback(error);
+
       } else {
         if (results.length > 0) {
           console.log("El usuario existe");
@@ -41,12 +31,11 @@ class Usuario {
         }
 
         // Llamar al callback sin error
-        callback(null, results);
       }
     });
   }
 
-  insertarUsuarioEnBD(callback) {
+  insertarUsuarioEnBD() {
     const connection = require('./Conexion');
 
     const insertUsuarioQuery = "INSERT INTO usuarios (ci_user, nombre, apellido, correo, contrasenna, fecha_ingreso, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -55,11 +44,10 @@ class Usuario {
     connection.query(insertUsuarioQuery, usuarioValues, function(error, results) {
       if (error) {
         console.error("No se pudo insertar en la base de datos");
-        return callback(error);
+
       } else {
         console.log("Usuario insertado en la base de datos correctamente.");
         // Llamar al callback con éxito
-        callback(null, results);
       }
     });
 
@@ -68,7 +56,7 @@ class Usuario {
   }
 
   //Modificar usuario
-  modificarUsuarioEnBD(nombre, apellido, correo, contrasenna, telefono, callback) {
+  modificarUsuarioEnBD(nombre, apellido, correo, contrasenna, telefono, ) {
     const connection = require('./Conexion');
 
     this.nombre = nombre;
@@ -83,17 +71,16 @@ class Usuario {
     connection.query(modificarUsuarioQuery, usuarioValues, (error, results) => {
       if (error) {
         console.error("Error al modificar el usuario:", error);
-        return callback(error);
+
       } else {
         console.log("Usuario modificado en la base de datos correctamente.");
 
         // Llamar al callback con éxito
-        callback(null, results);
       }
     });
   }
 
-  obtenerUsuarioDesdeBD(ci_user, callback) {
+  obtenerUsuarioDesdeBD(ci_user, ) {
     const pool = require('./Conexion');
 
     // Consultar datos del usuario
@@ -102,14 +89,14 @@ class Usuario {
     pool.getConnection((err, connection) => {
       if (err) {
         console.error("Error al obtener conexión desde el pool:", err);
-        return callback(err, null);
+
       }
 
       connection.query(obtenerUsuarioQuery, [ci_user], (error, results) => {
         if (error) {
           console.error("Error al obtener datos del usuario:", error);
           connection.release();  // Liberar la conexión al pool en caso de error
-          return callback(error, null);
+
         } else {
           if (results.length > 0) {
             // Almacena los datos en los atributos de la instancia
@@ -126,20 +113,20 @@ class Usuario {
 
             // Liberar la conexión al pool después de la consulta exitosa
             connection.release();
-            return callback(null, this);
+
           } else {
             console.log("No se encontró el usuario en la base de datos.");
 
             // Liberar la conexión al pool si no hay resultados
             connection.release();
-            return callback(null, null);
+
           }
         }
       });
     });
   }
 
-  eliminarDeBD(callback) {
+  eliminarDeBD() {
     const connection = require('./Conexion');
 
     const eliminarUsuarioQuery = "DELETE FROM usuarios WHERE ci_user = ?";
@@ -148,14 +135,36 @@ class Usuario {
     connection.query(eliminarUsuarioQuery, usuarioValues, (error, results) => {
       if (error) {
         console.error("Error al eliminar usuario de la base de datos:", error);
-        return callback(error);
+
       } else {
         console.log("Usuario eliminado de la base de datos correctamente.");
 
         // Llamar al callback con éxito
-        callback(null, results);
       }
     });
+  }
+
+  iniciar_Sesion(correo,pass,){
+    const connection = require('./Conexion');
+
+    const usuariosQuery = "SELECT * FROM usuarios WHERE correo = ? AND contrasenna=?";
+    connection.query(usuariosQuery, [correo,pass], (error, results) => {
+      if (error) {
+        console.error("Error al verificar la existencia del usuario:", error);
+
+        // Llamar al callback con el error
+
+      } else {
+        if (results.length > 0) {
+          console.log("Iniciando Sesion");
+        } else {
+          console.log("Datos Invalidos");
+        }
+
+        // Llamar al callback sin error
+      }
+    });
+
   }
 
   imprimirDatos() {

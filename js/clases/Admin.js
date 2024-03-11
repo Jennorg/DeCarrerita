@@ -89,7 +89,187 @@ class Administrador extends Usuario {
     });
   }
 
+  consultarRegistrosUsuarios(callback) {
+    const connection = require('./Conexion');
+    const consultarUsuariosQuery = "SELECT * FROM usuarios";
 
+    connection.query(consultarUsuariosQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla usuarios:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+  // Método para consultar registros de la tabla cliente
+  consultarRegistrosCliente(callback) {
+    const connection = require('./Conexion');
+    const consultarClienteQuery = "SELECT * FROM cliente";
+
+    connection.query(consultarClienteQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla cliente:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+  // Método para consultar registros de la tabla empleado_a
+  consultarRegistrosEmpleadoA(callback) {
+    const connection = require('./Conexion');
+    const consultarEmpleadoAQuery = "SELECT * FROM empleado_a";
+
+    connection.query(consultarEmpleadoAQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla empleado_a:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+  // Método para consultar registros de la tabla traslados
+  consultarRegistrosTraslados(callback) {
+    const connection = require('./Conexion');
+    const consultarTrasladosQuery = "SELECT * FROM traslados";
+
+    connection.query(consultarTrasladosQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla traslados:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+  // Método para consultar registros de la tabla chofer
+  consultarRegistrosChofer(callback) {
+    const connection = require('./Conexion');
+    const consultarChoferQuery = "SELECT * FROM chofer";
+
+    connection.query(consultarChoferQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla chofer:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+   // Método para consultar registros de la tabla pagochofer
+   consultarRegistrosPagos(callback) {
+    const connection = require('./Conexion');
+    const consultarChoferQuery = "SELECT * FROM pagochofer";
+
+    connection.query(consultarChoferQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla chofer:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+   // Método para consultar registros de la tabla recargas
+   consultarRegistrosRecargas(callback) {
+    const connection = require('./Conexion');
+    const consultarChoferQuery = "SELECT * FROM recarga";
+
+    connection.query(consultarChoferQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla chofer:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+   // Método para consultar registros de la tabla banco
+   consultarRegistrosBanco(callback) {
+    const connection = require('./Conexion');
+    const consultarChoferQuery = "SELECT * FROM banco";
+
+    connection.query(consultarChoferQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla chofer:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+   // Método para consultar registros de la tabla pruebas psicologicas
+   consultarRegistrosPruebaPsico(callback) {
+    const connection = require('./Conexion');
+    const consultarChoferQuery = "SELECT * FROM pruebapsico";
+
+    connection.query(consultarChoferQuery, (error, results) => {
+      if (error) {
+        console.error("Error al consultar registros de la tabla chofer:", error);
+        return callback(error);
+      } else {
+        // Llamar al callback con los resultados
+        callback(null, results);
+      }
+    });
+  }
+
+     // Método para consultar registros de la tabla revision
+     consultarRegistrosRevision(callback) {
+      const connection = require('./Conexion');
+      const consultarChoferQuery = "SELECT * FROM revision";
+  
+      connection.query(consultarChoferQuery, (error, results) => {
+        if (error) {
+          console.error("Error al consultar registros de la tabla chofer:", error);
+          return callback(error);
+        } else {
+          // Llamar al callback con los resultados
+          callback(null, results);
+        }
+      });
+    }
+
+    truncarTablaconCliente(nombreTabla, condicion) {
+      const truncateQuery = `DELETE FROM ${nombreTabla} WHERE id_cliente=${condicion}`;
+  
+      connection.query(truncateQuery, (error, results) => {
+        if (error) {
+          console.error(`Error al truncar la tabla ${nombreTabla} con condición:`, error);
+        } else {
+          console.log(`Tabla ${nombreTabla} truncada con condición exitosamente.`);
+        }
+      });
+    }
+
+    truncarTablaconChofer(nombreTabla, condicion) {
+      const truncateQuery = `DELETE FROM ${nombreTabla} WHERE id_chofer=${condicion}`;
+  
+      connection.query(truncateQuery, (error, results) => {
+        if (error) {
+          console.error(`Error al truncar la tabla ${nombreTabla} con condición:`, error);
+        } else {
+          console.log(`Tabla ${nombreTabla} truncada con condición exitosamente.`);
+        }
+      });
+    }
 
 }
 

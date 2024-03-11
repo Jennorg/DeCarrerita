@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeCarrerita</title>
 
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/signUp.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/signUp.css">
 
     <!--Boostrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -20,11 +20,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form autocomplete="off">
+    <form autocomplete="off" action="/validar " method="post">
       <h2 class="title">¡Registrate aquí!</h2>
       <fieldset>            
         <div class="input-box">
-          <input placeholder="Nombre" type="text" name="firstName" required>
+          <input placeholder="Nombre" type="text" name="firstName" id="firstName" required>
           <label for="firstName">Nombre</label>
         </div>
         <div class="input-box">
@@ -56,7 +56,7 @@
         <button type="submit">Registrarse</button>
         <p class="link">
           Inicia sesión
-          <a href="../index.html">aquí</a>
+          <a href="/logIn">aquí</a>
         </p>
         <p class="link">
           Ver el mapa

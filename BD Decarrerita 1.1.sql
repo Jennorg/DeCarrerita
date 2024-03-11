@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS administrador(
 CREATE TABLE IF NOT EXISTS chofer(
 	id_chofer INT NOT NULL primary key,
     id_user INT NOT NULL unique,
+    saldo int not null,
     estado enum("DISPONIBLE","NO DISPONIBLE","NO APROBADO"),
     foreign key(id_user) references usuarios(ci_user)
 )ENGINE=INNODB;
@@ -95,7 +96,6 @@ create table if not exists Traslados(
 create table if not exists pruebaPsico(
 	id int not null primary key,
     id_chofer int not null,
-    
     id_ea int,
     Respuesta1 varchar(100),
     Respuesta2 varchar(100),
@@ -110,7 +110,12 @@ create table if not exists pruebaPsico(
 create table if not exists Revision(
 	id int not null primary key,
     id_vehiculo varchar(10) not null,
-    id_ea int not null,
+    id_ea int,
+    respuesta1 int,
+    respuesta2 int,
+    respuesta3 int,
+    respuesta4 int,
+    respuesta5 VARCHAR(300),
     fecha DATE,
     resultado int,
     foreign key (id_vehiculo) references vehiculo(placa),
@@ -129,8 +134,7 @@ create table if not exists recarga(
     id_cliente int not null,
     id_banco int not null,
     monto int not null,
-    n_referencia int not null,
-    hora int,
+    n_referencia int not null unique,
     fecha date,
     foreign key (id_cliente) references cliente(id_client),
     foreign key (id_banco) references banco(rif_banco)
@@ -138,12 +142,13 @@ create table if not exists recarga(
 
 create table if not exists PagoChofer(
 	id int not null primary key,
-    id_traslado int not null,
+    id_chofer int not null,
     id_banco int not null,
     id_ea int,
     referencia int,
+    fecha date,
     monto int,
-    foreign key(id_traslado) references traslados(id),
+    foreign key(id_chofer) references chofer(id_chofer),
     foreign key(id_banco) references banco(rif_banco),
     foreign key(id_ea) references empleado_a(id_empleado)
 )engine=innodb;

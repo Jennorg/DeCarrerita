@@ -8,6 +8,7 @@ class Chofer extends Usuario{
         super();
         this.id=0;
         this.id_user=0;
+        this.saldo=0;
         this.estado="NO APROBADO";
     }
 
@@ -25,6 +26,7 @@ class Chofer extends Usuario{
           const chofer = results[0];
           this.id = chofer.id_chofer;
           this.id_user=chofer.id_user;
+          this.saldo=chofer.saldo;
           this.estado = chofer.estado;
 
           // También puedes llamar al método de la clase base para almacenar los datos del usuario
@@ -48,8 +50,8 @@ class Chofer extends Usuario{
   insertar_enBD(callback) {
     const connection = require('./Conexion');
 
-    const insertChoferQuery = "INSERT INTO chofer VALUES (floor(RAND()*1000000), ?, ?)";
-    const choferValues = [this.id_user,this.estado];
+    const insertChoferQuery = "INSERT INTO chofer VALUES (floor(RAND()*1000000), ?, ?, ?)";
+    const choferValues = [this.id_user,this.saldo,this.estado];
 
     connection.query(insertChoferQuery, choferValues, (error, results) => {
       if (error) {
@@ -83,7 +85,7 @@ class Chofer extends Usuario{
   imprimirDatosChofer() {
     super.imprimirDatos(); // Llama al método de la clase base para imprimir datos de Usuario
     console.log("Datos del chofer:");
-    console.log("ID: " + this.id +" ID_USER: "+this.id_user+" estado: "+this.estado);
+    console.log("ID: " + this.id +" ID_USER: "+this.id_user+" Saldo: "+this.saldo +" estado: "+this.estado);
   }
 
   verificar_Estado(id_user){
@@ -111,6 +113,70 @@ class Chofer extends Usuario{
       }
     });
   }
+
+  sumarSaldo(id_user, monto) {
+    const connection = require('./Conexion');
+    // Obtener saldo actual de la base de datos
+    const obtenerSaldoQuery = "SELECT saldo FROM chofer WHERE id_user = ?";
+    connection.query(obtenerSaldoQuery, [id_user], (error, results) => {
+      if (error) {
+        console.error("Error al obtener el saldo del chofer:", error);
+      } else {
+        if (results.length > 0) {
+          const saldoActual = results[0].saldo;
+          const nuevoSaldo = saldoActual + monto;
+
+          // Actualizar saldo en la base de datos
+          const actualizarSaldoQuery = "UPDATE chofer SET saldo = ? WHERE id_user = ?";
+          connection.query(actualizarSaldoQuery, [nuevoSaldo, id_user], (updateError, updateResults) => {
+            if (updateError) {
+              console.error("Error al actualizar el saldo del chofer:", updateError);
+            } else {
+              console.log("Saldo actualizado correctamente.");
+              // Actualizar el atributo saldo en la instancia de Chofer
+              this.saldo = nuevoSaldo;
+            }
+          });
+        } else {
+          console.log("No se encontró el chofer en la base de datos.");
+        }
+      }
+    });
+  }
+
+  restarSaldo(id_user, monto) {
+    const connection = require('./Conexion');
+    // Obtener saldo actual de la base de datos
+    const obtenerSaldoQuery = "SELECT saldo FROM chofer WHERE id_user = ?";
+    connection.query(obtenerSaldoQuery, [id_user], (error, results) => {
+      if (error) {
+        console.error("Error al obtener el saldo del chofer:", error);
+      } else {
+        if (results.length > 0) {
+          const saldoActual = results[0].saldo;
+          const nuevoSaldo = saldoActual - monto;
+
+          // Actualizar saldo en la base de datos
+          const actualizarSaldoQuery = "UPDATE chofer SET saldo = ? WHERE id_user = ?";
+          connection.query(actualizarSaldoQuery, [nuevoSaldo, id_user], (updateError, updateResults) => {
+            if (updateError) {
+              console.error("Error al actualizar el saldo del chofer:", updateError);
+            } else {
+              console.log("Saldo actualizado correctamente.");
+              // Actualizar el atributo saldo en la instancia de Chofer
+              this.saldo = nuevoSaldo;
+            }
+          });
+        } else {
+          console.log("No se encontró el chofer en la base de datos.");
+        }
+      }
+    });
+  }
+
+  
+
+
 
 }
 

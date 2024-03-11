@@ -105,6 +105,66 @@ class Cliente extends Usuario{
           }
         });
       }
+
+      sumarSaldo(id_user, monto) {
+        const connection = require('./Conexion');
+        // Obtener saldo actual de la base de datos
+        const obtenerSaldoQuery = "SELECT saldo FROM cliente WHERE id_user = ?";
+        connection.query(obtenerSaldoQuery, [id_user], (error, results) => {
+          if (error) {
+            console.error("Error al obtener el saldo del chofer:", error);
+          } else {
+            if (results.length > 0) {
+              const saldoActual = results[0].saldo;
+              const nuevoSaldo = saldoActual + monto;
+    
+              // Actualizar saldo en la base de datos
+              const actualizarSaldoQuery = "UPDATE cliente SET saldo = ? WHERE id_user = ?";
+              connection.query(actualizarSaldoQuery, [nuevoSaldo, id_user], (updateError, updateResults) => {
+                if (updateError) {
+                  console.error("Error al actualizar el saldo del cliente:", updateError);
+                } else {
+                  console.log("Saldo actualizado correctamente.");
+                  // Actualizar el atributo saldo en la instancia de cliente
+                  this.saldo = nuevoSaldo;
+                }
+              });
+            } else {
+              console.log("No se encontró el chofer en la base de datos.");
+            }
+          }
+        });
+      }
+    
+      restarSaldo(id_user, monto) {
+        const connection = require('./Conexion');
+        // Obtener saldo actual de la base de datos
+        const obtenerSaldoQuery = "SELECT saldo FROM cliente WHERE id_user = ?";
+        connection.query(obtenerSaldoQuery, [id_user], (error, results) => {
+          if (error) {
+            console.error("Error al obtener el saldo del cliente:", error);
+          } else {
+            if (results.length > 0) {
+              const saldoActual = results[0].saldo;
+              const nuevoSaldo = saldoActual - monto;
+    
+              // Actualizar saldo en la base de datos
+              const actualizarSaldoQuery = "UPDATE cliente SET saldo = ? WHERE id_user = ?";
+              connection.query(actualizarSaldoQuery, [nuevoSaldo, id_user], (updateError, updateResults) => {
+                if (updateError) {
+                  console.error("Error al actualizar el saldo del cliente:", updateError);
+                } else {
+                  console.log("Saldo actualizado correctamente.");
+                  // Actualizar el atributo saldo en la instancia de Cliente
+                  this.saldo = nuevoSaldo;
+                }
+              });
+            } else {
+              console.log("No se encontró el chofer en la base de datos.");
+            }
+          }
+        });
+      }
     
     
      imprimirDatosCliente() {

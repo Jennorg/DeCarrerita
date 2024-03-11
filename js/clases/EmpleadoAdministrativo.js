@@ -88,26 +88,6 @@ class EmpleadoAdministrativo extends Usuario {
       }
     });
   }
-
-  // Método para modificar un empleado administrativo en la base de datos
-  /*modificarBD(callback) {
-    const connection = require('./Conexion');
-
-    const modificarEmpleadoQuery = "UPDATE Empleado_A SET id_user = ? WHERE id_empleado = ?";
-    const empleadoValues = [this.id_user, this.id_empleado];
-
-    connection.query(modificarEmpleadoQuery, empleadoValues, (error, results) => {
-      if (error) {
-        console.error("Error al modificar el empleado administrativo en la base de datos:", error);
-        return callback(error);
-      } else {
-        console.log("Empleado administrativo modificado en la base de datos correctamente.");
-
-        // Llamar al callback con éxito
-        callback(null, results);
-      }
-    });
-  }*/
 }
 
 module.exports = EmpleadoAdministrativo;
